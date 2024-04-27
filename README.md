@@ -4,10 +4,11 @@
 - [X] Make it deploy
 - [X] Scaffold basic UI with mock data
 - [X] Setup Database
-- [ ] Add Authentication
-- [ ] Add Database to UI
-- [ ] Add Authentication
+- [X] Add Database to UI
+- [X] Add Authentication
 - [ ] Add Task/Note Upload to DB
+- [ ] "taint" UI (server-side)
+- [ ] Use Next/Image component
 - [ ] Add Error management w Sentry
 - [ ] Routing/note page (parallel route)
 - [ ] Delete Task/Note
