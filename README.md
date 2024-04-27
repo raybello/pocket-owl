@@ -3,7 +3,7 @@
 ## TODO
 - [X] Make it deploy
 - [X] Scaffold basic UI with mock data
-- [ ] Setup Database
+- [X] Setup Database
 - [ ] Add Authentication
 - [ ] Add Database to UI
 - [ ] Add Authentication
