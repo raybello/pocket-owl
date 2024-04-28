@@ -5,6 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { tasks } from "./db/schema";
 import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
+import analyticsServerClient from "./analytics";
 
 
 export async function getMyImages() {
@@ -73,6 +74,14 @@ export async function deleteTask(id: number) {
     if (!user.userId) throw new Error("Unauthorized");
 
     await db.delete(tasks).where(and(eq(tasks.id, id), eq(tasks.userId, user.userId)));
+
+    analyticsServerClient.capture({
+        distinctId: user.userId,
+        event: "Delete Task",
+        properties: {
+            taskId: id
+        },
+    });
 
     redirect("/");
 }
