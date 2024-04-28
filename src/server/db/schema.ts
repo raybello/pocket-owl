@@ -33,6 +33,7 @@ export const tasks = createTable(
     startDate: timestamp("startDate")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
+    
     endDate: timestamp("endDate")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
