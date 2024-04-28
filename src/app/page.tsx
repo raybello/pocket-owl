@@ -1,17 +1,13 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Image from "next/image";
-import Link from "next/link";
 import { db } from "~/server/db";
 
 export const dynamic = "force-dynamic";
 
-
 async function Tasks() {
-
   const tasks = await db.query.tasks.findMany({
     orderBy: (model, { desc }) => desc(model.id),
   });
-
 
   return (
     <div className="flex flex-wrap space-x-4">
@@ -89,17 +85,16 @@ async function Tasks() {
 }
 
 export default async function HomePage() {
-
-  
   return (
     <main className="">
       <SignedOut>
-        <div className="w-full h-full text-2xl p-4 text-center"> Please sign in to view</div>
+        <div className="h-full w-full p-4 text-center text-2xl">
+          Please sign in to view
+        </div>
       </SignedOut>
       <SignedIn>
-        <Tasks/>
+        <Tasks />
       </SignedIn>
     </main>
   );
 }
-
