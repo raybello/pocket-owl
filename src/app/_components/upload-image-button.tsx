@@ -88,6 +88,7 @@ function makeUploadToast() {
 export function UploadImageButton() {
 
   const posthog = usePostHog();
+  const router = useRouter();
 
   const { inputProps } = useUploadThingInputProps("imageUploader", {
     onUploadBegin() {
