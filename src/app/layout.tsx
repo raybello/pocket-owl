@@ -47,10 +47,14 @@ export default function RootLayout({
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
         <body className={`font-sans ${inter.variable} flex flex-col gap-4`}>
-          <TopNav />
-          <div id="modal-root" />
-          {children}
+          <div className="flex h-screen flex-col gap-2">
+            <TopNav />
+            <main className="overflow-y-scroll no-scrollbar">
+              {children}
+            </main>
+          </div>
           {modal}
+          <div id="modal-root" />
         </body>
       </html>
     </ClerkProvider>

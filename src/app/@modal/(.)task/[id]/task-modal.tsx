@@ -21,10 +21,10 @@ export function TaskModal({ children }: { children: React.ReactNode }) {
   return createPortal(
     <dialog
       ref={dialogRef}
-      className="modal h-3/4 w-2/3 rounded-lg bg-green-500 p-2"
+      className="modal h-3/4 w-2/3 rounded-lg bg-zinc-500 p-2 "
       onClose={onDismiss}
     >
-      <div className="flex justify-end p-2">
+      <div className="flex justify-end p-2 ">
         <button className="close-button rounded-lg bg-red-500 px-2 text-black " onClick={onDismiss}>
           X
         </button>

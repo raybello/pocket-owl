@@ -59,20 +59,54 @@ async function Tasks() {
                     <p> X </p>
                   </button>
                 </div>
-                <button className="rounded bg-blue-500 px-2 text-white hover:bg-blue-700 ">
+                <button className="rounded bg-blue-500 px-2 text-black hover:bg-blue-700 ">
                   + Add Link
                 </button>
               </div>
             </div>
             {task.taskImageUrl ? (
-              <Image
-                className="mb-4 w-full rounded-lg"
-                src={task.taskImageUrl}
-                style={{ objectFit: "contain" }}
-                alt={`Item ${task.id}`}
-                width={50}
-                height={50}
-              />
+              <div className="grid grid-cols-3 gap-2">
+                <div>
+                  <Image
+                    className="mb-4 w-16 w-full rounded-lg object-contain"
+                    src={task.taskImageUrl}
+                    style={{ objectFit: "contain" }}
+                    alt={`Item ${task.id}`}
+                    width={50}
+                    height={50}
+                  />
+                </div>
+                <div>
+                  <Image
+                    className="mb-4 w-16 w-full rounded-lg object-contain"
+                    src={task.taskImageUrl}
+                    style={{ objectFit: "contain" }}
+                    alt={`Item ${task.id}`}
+                    width={50}
+                    height={50}
+                  />
+                </div>
+                <div>
+                  <Image
+                    className="mb-4 w-16 w-full rounded-lg object-contain"
+                    src={task.taskImageUrl}
+                    style={{ objectFit: "contain" }}
+                    alt={`Item ${task.id}`}
+                    width={50}
+                    height={50}
+                  />
+                </div>
+                <div>
+                  <Image
+                    className="mb-4 w-16 w-full rounded-lg object-contain"
+                    src={task.taskImageUrl}
+                    style={{ objectFit: "contain" }}
+                    alt={`Item ${task.id}`}
+                    width={50}
+                    height={50}
+                  />
+                </div>
+              </div>
             ) : null}
             <div className="flex flex-col py-2">
               <div className="text-gray-500">
@@ -93,13 +127,13 @@ async function Tasks() {
         {images.map((image) => (
           <div key={image.id} className="flex h-48 w-48 flex-col ">
             {/* <Link href={`/task/${image.id}`}> */}
-              <Image
-                src={image.url}
-                alt={`Item ${image.id}`}
-                className="mb-4 w-full rounded-lg"
-                width={50}
-                height={50}
-              />
+            <Image
+              src={image.url}
+              alt={`Item ${image.id}`}
+              className="mb-4 w-full rounded-lg w-48 object-contain"
+              width={50}
+              height={50}
+            />
             {/* </Link> */}
           </div>
         ))}
