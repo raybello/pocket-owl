@@ -2,7 +2,7 @@
 
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { UploadButton } from "~/utils/uploadthing";
+import { UploadImageButton } from "./upload-image-button";
 
 export function TopNav() {
 
@@ -18,9 +18,7 @@ export function TopNav() {
         </SignedOut>
         <SignedIn>
           <div className="flex flex-row items-center gap-4">
-            <UploadButton endpoint="imageUploader" onClientUploadComplete={() => {
-              router.refresh();
-            }} />
+            <UploadImageButton />
             <UserButton />
           </div>
         </SignedIn>

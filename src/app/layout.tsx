@@ -11,6 +11,7 @@ import {
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
+import { Toaster } from "~/components/ui/sonner";
 
 
 const inter = Inter({
@@ -46,15 +47,16 @@ export default function RootLayout({
            */
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
-        <body className={`font-sans ${inter.variable} flex flex-col gap-4`}>
+        <body
+          className={`font-sans ${inter.variable} dark flex flex-col gap-4`}
+        >
           <div className="flex h-screen flex-col gap-2">
             <TopNav />
-            <main className="overflow-y-scroll no-scrollbar">
-              {children}
-            </main>
+            <main className="no-scrollbar overflow-y-scroll">{children}</main>
+            {modal}
           </div>
-          {modal}
           <div id="modal-root" />
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>
