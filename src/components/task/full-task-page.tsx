@@ -1,15 +1,15 @@
 import { clerkClient } from "@clerk/nextjs/server";
-import { getTask } from "~/server/queries";
-
-
+import { deleteTask, getTask } from "~/server/queries";
+import { Button } from "../ui/button";
 
 export default async function FullTaskPage(props: { id: number }) {
   const idAsNumber = Number(props.id);
   if (Number.isNaN(idAsNumber)) throw new Error("Invalid Image ID");
 
-    const task = await getTask(idAsNumber);
-    
-    const uploaderInfo = await clerkClient.users.getUser(task.userId);
+  const task = await getTask(idAsNumber);
+
+  const uploaderInfo = await clerkClient.users.getUser(task.userId);
+
 
   return (
     <div className="bg-black-500 flex w-full min-w-0 flex-col p-4 text-white">
@@ -32,18 +32,17 @@ export default async function FullTaskPage(props: { id: number }) {
       </div>
       <div className="mb-2">
         <span className="font-semibold">Start Date:</span>{" "}
-        <span className="">
-          {new Date(task.startDate).toLocaleString()}
-        </span>{" "}
+        <span className="">{new Date(task.startDate).toLocaleString()}</span>{" "}
       </div>
       <div className="mb-2">
         <span className="font-semibold">End Date:</span>{" "}
-        <span className="">{new Date(task.endDate).toLocaleString()}</span>{" "}
-        {}
+        <span className="">{new Date(task.endDate).toLocaleString()}</span> {}
       </div>
       <div className="mb-2">
         <span className="font-semibold">Created On:</span>{" "}
-        <span className="">{new Date(task.createdAt).toLocaleDateString()}</span>{" "}
+        <span className="">
+          {new Date(task.createdAt).toLocaleDateString()}
+        </span>{" "}
       </div>
       <div className="mb-2">
         <span className="font-semibold">Created By:</span>{" "}
@@ -55,6 +54,18 @@ export default async function FullTaskPage(props: { id: number }) {
         className="w-64 object-contain"
         alt={task.name}
       />
+      <div className="p-2">
+        <form
+          action={async () => {
+            "use server";
+            await deleteTask(idAsNumber);
+          }}
+        >
+          <Button type="submit" variant="destructive" >
+            Delete Task
+          </Button>
+        </form>
+      </div>
     </div>
   );
 }

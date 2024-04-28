@@ -1,6 +1,7 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "~/components/ui/button";
 import { getMyImages, getMyTasks } from "~/server/queries";
 
 export const dynamic = "force-dynamic";
@@ -18,13 +19,10 @@ async function Tasks() {
             <div className="mb-2 flex items-center justify-between">
               <h2 className="text-lg font-bold"> {task.name} </h2>
               <Link href={`/task/${task.id}`}>
-                <button className="text-sm text-green-500 hover:text-green-700">
+                <Button variant="outline" className="text-sm ">
                   <p> Edit </p>
-                </button>
+                </Button>
               </Link>
-              <button className="text-sm text-red-500 hover:text-red-700">
-                <p> Delete </p>
-              </button>
             </div>
 
             <div className="mb-4">

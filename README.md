@@ -9,8 +9,8 @@
 - [X] Add Task/Note Upload to DB
 - [X] "taint" UI (server-side)
 - [X] Use Next/Image component
-- [ ] Add Error management w Sentry
-- [ ] Routing/note page (parallel route)
+- [X] Add Error management w Sentry
+- [X] Routing/note page (parallel route)
+- [X] Analytics (posthog)
 - [ ] Delete Task/Note
-- [ ] Analytics 
 - [ ] Rate limiting
