@@ -12,11 +12,16 @@ async function Tasks() {
 
   return (
     <>
-      <div className="flex flex-wrap space-x-4 justify-center">
+      <div className="flex flex-wrap justify-center space-x-4">
         {tasks.map((task) => (
           <div key={task.id} className="mb-4 rounded border p-4 ">
             <div className="mb-2 flex items-center justify-between">
               <h2 className="text-lg font-bold"> {task.name} </h2>
+              <Link href={`/task/${task.id}`}>
+                <button className="text-sm text-green-500 hover:text-green-700">
+                  <p> Edit </p>
+                </button>
+              </Link>
               <button className="text-sm text-red-500 hover:text-red-700">
                 <p> Delete </p>
               </button>
@@ -84,18 +89,18 @@ async function Tasks() {
           </div>
         ))}
       </div>
-      <div className="flex flex-wrap space-x-4 justify-center">
+      <div className="flex flex-wrap justify-center space-x-4">
         {images.map((image) => (
           <div key={image.id} className="flex h-48 w-48 flex-col ">
-            <Link href={`/img/${image.id}`}>
-            <Image
-              src={image.url}
-              alt={`Item ${image.id}`}
-              className="mb-4 w-full rounded-lg"
-              width={50}
-              height={50}
+            {/* <Link href={`/task/${image.id}`}> */}
+              <Image
+                src={image.url}
+                alt={`Item ${image.id}`}
+                className="mb-4 w-full rounded-lg"
+                width={50}
+                height={50}
               />
-            </Link>
+            {/* </Link> */}
           </div>
         ))}
       </div>

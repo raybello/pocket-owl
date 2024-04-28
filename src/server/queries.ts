@@ -47,4 +47,20 @@ export async function getImage(id: number) {
 
     return image;
 }
+
+export async function getTask(id: number) {
+
+    const user = auth();
+    if (!user.userId) throw new Error("Unauthorized");
+
+    const task = await db.query.tasks.findFirst({
+        where: (model, { eq }) => eq(model.id, id),
+    })
+
+    if (!task) throw new Error("Task not found");
+
+    if (task.userId !== user.userId) throw new Error("Unauthorized");
+
+    return task;
+}
     
