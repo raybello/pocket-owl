@@ -1,5 +1,6 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Image from "next/image";
+import Link from "next/link";
 import { getMyImages, getMyTasks } from "~/server/queries";
 
 export const dynamic = "force-dynamic";
@@ -11,7 +12,7 @@ async function Tasks() {
 
   return (
     <>
-      <div className="flex flex-wrap space-x-4">
+      <div className="flex flex-wrap space-x-4 justify-center">
         {tasks.map((task) => (
           <div key={task.id} className="mb-4 rounded border p-4 ">
             <div className="mb-2 flex items-center justify-between">
@@ -60,9 +61,10 @@ async function Tasks() {
             </div>
             {task.taskImageUrl ? (
               <Image
-                src={task.taskImageUrl}
-                alt={`Item ${task.id}`}
                 className="mb-4 w-full rounded-lg"
+                src={task.taskImageUrl}
+                style={{ objectFit: "contain" }}
+                alt={`Item ${task.id}`}
                 width={50}
                 height={50}
               />
@@ -82,16 +84,18 @@ async function Tasks() {
           </div>
         ))}
       </div>
-      <div className="flex flex-wrap space-x-4">
+      <div className="flex flex-wrap space-x-4 justify-center">
         {images.map((image) => (
-          <div key={image.id} className="mb-4 rounded border p-4 ">
+          <div key={image.id} className="flex h-48 w-48 flex-col ">
+            <Link href={`/img/${image.id}`}>
             <Image
               src={image.url}
               alt={`Item ${image.id}`}
               className="mb-4 w-full rounded-lg"
               width={50}
               height={50}
-            />
+              />
+            </Link>
           </div>
         ))}
       </div>
