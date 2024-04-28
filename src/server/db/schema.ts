@@ -23,6 +23,7 @@ export const tasks = createTable(
   {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }).notNull(),
+    userId: varchar("userId", { length: 256 }).notNull(),
 
     taskImageUrl: varchar("taskImageUrl", { length: 1024 }),
     taskImageId: varchar("taskImageId", { length: 1024 }),

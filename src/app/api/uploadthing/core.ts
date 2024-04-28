@@ -34,6 +34,7 @@ export const ourFileRouter = {
       await db.insert(tasks).values({
         name: "New Task",
         taskImageUrl: file.url,
+        userId: metadata.userId,
       })
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback

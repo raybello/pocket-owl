@@ -6,7 +6,7 @@
 - [X] Setup Database
 - [X] Add Database to UI
 - [X] Add Authentication
-- [ ] Add Task/Note Upload to DB
+- [X] Add Task/Note Upload to DB
 - [ ] "taint" UI (server-side)
 - [ ] Use Next/Image component
 - [ ] Add Error management w Sentry
