@@ -106,7 +106,7 @@ export function UploadImageButton() {
     onUploadError(error) {
       posthog.capture("upload_error", { error });
       toast.dismiss("upload-begin");
-      toast.error("Upload failed");
+      toast.error(<span className="text-lg text-white">Upload failed</span>);
     },
     onClientUploadComplete() {
       toast.dismiss("upload-begin");
