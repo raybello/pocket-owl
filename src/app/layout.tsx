@@ -52,9 +52,9 @@ export default function RootLayout({
           <body
             className={`font-sans ${inter.variable} dark flex flex-col gap-4`}
           >
-            <div className="flex h-screen flex-col gap-2">
+            <div className="flex min-h-full flex-col gap-2">
               <TopNav />
-              <main className="no-scrollbar overflow-y-scroll">{children}</main>
+              <main className="overflow-y-hidden">{children}</main>
               {modal}
             </div>
             <div id="modal-root" />

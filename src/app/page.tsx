@@ -7,13 +7,42 @@ import { getMyImages, getMyTasks } from "~/server/queries";
 export const dynamic = "force-dynamic";
 
 async function Tasks() {
-
   const tasks = await getMyTasks();
   const images = await getMyImages();
 
+  function TaskCard({ task }: { task: { id: number; name: string } }) {
+    return (
+      <div className="flex rounded-md bg-slate-700 p-2">
+        <h1>{task.name}</h1>
+        <h2>{task.id}</h2>
+      </div>
+    );
+  }
+
+  function ColumnContainer({ title }: { title: string }) {
+    return (
+      <div className="flex flex-col space-y-4">
+        <h1 className="text-xl font-bold">{title}</h1>
+        {tasks.map((task) => (
+          <TaskCard key={task.id} task={task} />
+        ))}
+      </div>
+    );
+  }
+
+  function KanbanContainer() {
+    return (
+      <div className="flex flex-row justify-center space-x-4">
+        <ColumnContainer title="Not Started" />
+        <ColumnContainer title="In Progress" />
+        <ColumnContainer title="Completed" />
+      </div>
+    );
+  }
+
   return (
     <>
-      <div className="flex flex-wrap justify-center space-x-4">
+      {/* <div className="flex flex-wrap justify-center space-x-4">
         {tasks.map((task) => (
           <div key={task.id} className="mb-4 rounded border p-4 ">
             <div className="mb-2 flex items-center justify-between">
@@ -120,11 +149,10 @@ async function Tasks() {
             </div>
           </div>
         ))}
-      </div>
-      <div className="flex flex-wrap justify-center space-x-4">
+      </div> */}
+      {/* <div className="flex flex-wrap justify-center space-x-4">
         {images.map((image) => (
           <div key={image.id} className="flex h-48 w-48 flex-col ">
-            {/* <Link href={`/task/${image.id}`}> */}
             <Image
               src={image.url}
               alt={`Item ${image.id}`}
@@ -132,15 +160,53 @@ async function Tasks() {
               width={50}
               height={50}
             />
-            {/* </Link> */}
           </div>
         ))}
-      </div>
+      </div> */}
+
+      <KanbanContainer />
     </>
   );
 }
 
 export default async function HomePage() {
+  function Sidebar({ children }: { children: React.ReactNode }) {
+    function CloseSidebarSVG() {
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="h-6 w-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15.75 19.5 8.25 12l7.5-7.5"
+          />
+        </svg>
+      );
+    }
+    return (
+      <aside className="h-screen">
+        <nav className="flex h-full flex-col shadow-sm">
+          <div className="flex items-center justify-between space-x-2 p-4 pb-2">
+            <Button variant="secondary" className="rounded-full p-1.5">
+              <CloseSidebarSVG />
+            </Button>
+          </div>
+          <ul className="flex flex-col px-3">{children}</ul>
+          <div className="flex border-t gap-x-2 p-2 w-52">
+            <h1>Avatar</h1>
+            <h3> Username</h3>
+          </div>
+        </nav>
+      </aside>
+    );
+  }
+
   return (
     <main className="">
       <SignedOut>
@@ -149,7 +215,15 @@ export default async function HomePage() {
         </div>
       </SignedOut>
       <SignedIn>
-        <Tasks />
+        <div className="flex flex-row space-x-4 p-4">
+          <Sidebar>
+            {<h1>Tasks</h1>}
+            {<h1>Calendar</h1>}
+            {<h1>Statistics</h1>}
+            {<h1>Notes</h1>}
+          </Sidebar>
+          <Tasks />
+        </div>
       </SignedIn>
     </main>
   );

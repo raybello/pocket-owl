@@ -12,5 +12,5 @@
 - [X] Add Error management w Sentry
 - [X] Routing/note page (parallel route)
 - [X] Analytics (posthog)
-- [ ] Delete Task/Note
-- [ ] Rate limiting
+- [X] Delete Task/Note
+- [X] Rate limiting
