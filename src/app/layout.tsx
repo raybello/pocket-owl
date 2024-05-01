@@ -50,7 +50,7 @@ export default function RootLayout({
             routerConfig={extractRouterConfig(ourFileRouter)}
           />
           <body
-            className={`font-sans ${inter.variable} dark flex flex-col gap-4`}
+            className={`font-sans ${inter.variable} custom_light flex flex-col gap-4`}
           >
             <div className="flex min-h-full flex-col gap-2">
               <TopNav />

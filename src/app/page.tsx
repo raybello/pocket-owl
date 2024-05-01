@@ -170,7 +170,7 @@ async function Tasks() {
 }
 
 export default async function HomePage() {
-  function Sidebar({ children }: { children: React.ReactNode }) {
+  function Sidebar() {
     function CloseSidebarSVG() {
       return (
         <svg
@@ -191,15 +191,36 @@ export default async function HomePage() {
     }
     return (
       <aside className="h-screen">
-        <nav className="flex h-full flex-col shadow-sm">
-          <div className="flex items-center justify-between space-x-2 p-4 pb-2">
-            <Button variant="secondary" className="rounded-full p-1.5">
+        <nav className="flex w-44 flex-col rounded-lg bg-background ">
+          <div className="m-1.5 mb-1 flex items-center justify-end gap-x-2 rounded-lg bg-secondary p-1">
+            <h1>Hide Sidebar</h1>
+            <Button className="rounded-full p-1.5 m-1">
               <CloseSidebarSVG />
             </Button>
           </div>
-          <ul className="flex flex-col px-3">{children}</ul>
-          <div className="flex border-t gap-x-2 p-2 w-52">
-            <h1>Avatar</h1>
+
+          <div className="m-1.5 flex flex-col space-y-1 bg-background">
+            <div className=" rounded-lg bg-secondary p-2">
+              <h1>Tasks</h1>
+            </div>
+            <div className=" rounded-lg bg-secondary p-2">
+              <h1>Calendar</h1>
+            </div>
+            <div className=" rounded-lg bg-secondary p-2">
+              <h1>Scheduler</h1>
+            </div>
+            <div className=" rounded-lg bg-secondary p-2">
+              <h1>Workouts</h1>
+            </div>
+            <div className=" rounded-lg bg-secondary p-2">
+              <h1>Calorie Tracker</h1>
+            </div>
+            <div className=" rounded-lg bg-secondary p-2">
+              <h1>Statistics</h1>
+            </div>
+          </div>
+          <div className="m-1.5 flex gap-x-2 rounded-lg bg-secondary p-2 ">
+            <CloseSidebarSVG />
             <h3> Username</h3>
           </div>
         </nav>
@@ -216,12 +237,7 @@ export default async function HomePage() {
       </SignedOut>
       <SignedIn>
         <div className="flex flex-row space-x-4 p-4">
-          <Sidebar>
-            {<h1>Tasks</h1>}
-            {<h1>Calendar</h1>}
-            {<h1>Statistics</h1>}
-            {<h1>Notes</h1>}
-          </Sidebar>
+          <Sidebar />
           <Tasks />
         </div>
       </SignedIn>
