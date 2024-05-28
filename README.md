@@ -14,3 +14,6 @@
 - [X] Analytics (posthog)
 - [X] Delete Task/Note
 - [X] Rate limiting
+
+## Upslash wallpaper collection
+https://unsplash.com/collections/1263731/wallpaper

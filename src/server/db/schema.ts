@@ -70,3 +70,42 @@ export const images = createTable(
     nameIndex: index("image_idx").on(example.name),
   }),
 );
+
+
+
+export const buckets = createTable(
+  "bucket",
+  {
+    id: serial("id").primaryKey(),
+    name: varchar("name", { length: 256 }).notNull(),
+    userId: varchar("userId", { length: 256 }).notNull(),
+  },
+  (example) => ({
+    nameIndex: index("bucket_idx").on(example.name),
+  }),
+)
+export type Bucket = typeof buckets.$inferSelect;
+
+
+export const boards = createTable(
+  "board",
+  {
+    id:               serial("id").primaryKey(),
+    userId:           varchar("userId", { length: 256 }).notNull(),
+    name:             varchar("name", { length: 256 }).notNull(),
+    imageId:          varchar("imageId", { length: 256 }),
+    imageThumbUrl:    varchar("imageThumbUrl", { length: 1024 }),
+    imageFullUrl:     varchar("imageFullUrl", { length: 1024 }),
+    imageUserName:    varchar("imageUserName", { length: 256 }),
+    imageLinkHTML:    varchar("imageLinkHTML", { length: 1024 }),
+
+    createdAt:        timestamp("createdAt")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt:        timestamp("updatedAt"),
+  },
+  (example) => ({
+    nameIndex: index("board_idx").on(example.name),
+  }),
+);
+export type Board = typeof boards.$inferSelect;

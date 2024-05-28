@@ -3,26 +3,24 @@
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { UploadImageButton } from "./upload-image-button";
+import Logo from "~/components/ui/logo";
 
 export function TopNav() {
-
-  const router = useRouter();
+  // const router = useRouter();
 
   return (
-    <nav className="flex w-full items-center justify-between border-b p-4 text-xl font-semibold">
-      <div>PocketOwl</div>
-
-      <div className="flex flex-row">
-        <SignedOut>
+    <>
+      <SignedOut>
+        <nav className="flex w-full items-center justify-between p-4 text-xl font-semibold">
+          <Logo />
           <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <div className="flex flex-row items-center gap-4">
-            <UploadImageButton />
-            <UserButton />
-          </div>
-        </SignedIn>
-      </div>
-    </nav>
+        </nav>
+      </SignedOut>
+      <SignedIn>
+        <nav className="flex w-full items-center justify-end pt-2 pb-2 pr-3">
+          <UserButton />
+        </nav>
+      </SignedIn>
+    </>
   );
 }

@@ -1,8 +1,8 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "~/components/ui/button";
 import { getMyImages, getMyTasks } from "~/server/queries";
+import LandingPage from "~/components/pages/LandingPage";
+import Link from "next/link";
+import DashboardPage from "~/components/pages/DashboardPage";
 
 export const dynamic = "force-dynamic";
 
@@ -169,78 +169,15 @@ async function Tasks() {
   );
 }
 
-export default async function HomePage() {
-  function Sidebar() {
-    function CloseSidebarSVG() {
-      return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="h-6 w-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 19.5 8.25 12l7.5-7.5"
-          />
-        </svg>
-      );
-    }
-    return (
-      <aside className="h-screen">
-        <nav className="flex w-44 flex-col rounded-lg bg-background ">
-          <div className="m-1.5 mb-1 flex items-center justify-end gap-x-2 rounded-lg bg-secondary p-1">
-            <h1>Hide Sidebar</h1>
-            <Button className="rounded-full p-1.5 m-1">
-              <CloseSidebarSVG />
-            </Button>
-          </div>
-
-          <div className="m-1.5 flex flex-col space-y-1 bg-background">
-            <div className=" rounded-lg bg-secondary p-2">
-              <h1>Tasks</h1>
-            </div>
-            <div className=" rounded-lg bg-secondary p-2">
-              <h1>Calendar</h1>
-            </div>
-            <div className=" rounded-lg bg-secondary p-2">
-              <h1>Scheduler</h1>
-            </div>
-            <div className=" rounded-lg bg-secondary p-2">
-              <h1>Workouts</h1>
-            </div>
-            <div className=" rounded-lg bg-secondary p-2">
-              <h1>Calorie Tracker</h1>
-            </div>
-            <div className=" rounded-lg bg-secondary p-2">
-              <h1>Statistics</h1>
-            </div>
-          </div>
-          <div className="m-1.5 flex gap-x-2 rounded-lg bg-secondary p-2 ">
-            <CloseSidebarSVG />
-            <h3> Username</h3>
-          </div>
-        </nav>
-      </aside>
-    );
-  }
-
+export default async function RootPage() {
   return (
-    <main className="">
+    <>
       <SignedOut>
-        <div className="h-full w-full p-4 text-center text-2xl">
-          Please sign in to view
-        </div>
+        <LandingPage />
       </SignedOut>
       <SignedIn>
-        <div className="flex flex-row space-x-4 p-4">
-          <Sidebar />
-          <Tasks />
-        </div>
+        <DashboardPage />
       </SignedIn>
-    </main>
+    </>
   );
 }

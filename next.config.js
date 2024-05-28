@@ -19,9 +19,16 @@ const CoreConfig = {
       {
         hostname: "utfs.io",
       },
+      {
+        hostname: "images.glints.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
   },
-  
+
   async rewrites() {
     return [
       {
