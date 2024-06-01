@@ -71,7 +71,7 @@ function SidebarItem({
 }
 
 const SidebarItems = [
-  { icon: <DashboardSVG />, text: "Dashboard", url: "/", active: true },
+  { icon: <DashboardSVG/>, text: "Dashboard", url: "/", active: true },
   { icon: <BoardSVG />, text: "Boards", url: "/boards", alert: true },
   { icon: <TaskSVG />, text: "Tasks", url: "/tasks", alert: true },
   { icon: <NotesSVG />, text: "Notes", url: "/notes" },
@@ -82,7 +82,7 @@ const SidebarItems = [
 const SidebarContext = createContext(true);
 
 function Sidebar({ children }: { children: React.ReactNode }) {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <aside className="h-screen">

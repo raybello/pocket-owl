@@ -58,7 +58,8 @@ export default function RootLayout({
               <SidebarContent />
               <div className="flex w-full flex-col">
                 <TopNav />
-                <main className="pr-3 max-w-6xl 2xl:max-w-screen-xl h-full mb-3">{children}</main>
+                {/* <main className="pr-3 max-w-6xl 2xl:max-w-screen h-full w-full mb-3">{children}</main> */}
+                <main className="pr-3 h-full w-full 2xl:max-w-screen mb-3">{children}</main>
                 {modal}
               </div>
             </div>

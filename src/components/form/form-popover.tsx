@@ -68,7 +68,7 @@ export const FormPopover = ({
                 <form action={onSubmit} className="space-y-4">
                     <div className="space-y-4">
                         <FormPicker id="image" errors={fieldErrors}/>
-                        <FormInput id="name" label="Board Name" type="text" errors={fieldErrors} />
+                        <FormInput id="name" label="Board Name" type="text" className="border px-1" errors={fieldErrors} />
                     </div>
                     <FormSubmit className="text-slate-800">Create</FormSubmit>
                 </form>

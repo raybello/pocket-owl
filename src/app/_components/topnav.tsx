@@ -1,9 +1,8 @@
 "use client";
 
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
-import { UploadImageButton } from "./upload-image-button";
 import Logo from "~/components/ui/logo";
+
 
 export function TopNav() {
   // const router = useRouter();
@@ -17,7 +16,7 @@ export function TopNav() {
         </nav>
       </SignedOut>
       <SignedIn>
-        <nav className="flex w-full items-center justify-end pt-2 pb-2 pr-3">
+        <nav className="flex w-full items-center justify-end pb-2 pr-3 pt-2">
           <UserButton />
         </nav>
       </SignedIn>

@@ -8,7 +8,6 @@ import { Hint } from "~/components/hint";
 import { Skeleton } from "~/components/ui/skeleton";
 
 export default async function BoardList() {
-
   const { userId } = auth();
 
   if (!userId) return null;
@@ -16,32 +15,28 @@ export default async function BoardList() {
   const boards = await db.query.boards.findMany({
     where: (model, { eq }) => eq(model.userId, userId),
     orderBy: (model, { desc }) => desc(model.createdAt),
-  })
+  });
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center text-lg font-semibold">
+      <div className="flex items-center text-lg font-semibold pt-2">
         <User2 className="mr-2 h-6 w-6" />
         Your Boards
       </div>
-      <div className="sm:grid-col-3 grid grid-cols-2 gap-4 lg:grid-cols-4 pb-3">
+      <div className="sm:grid-col-3 grid h-full grid-cols-2 gap-4 pb-3 lg:grid-cols-5">
         {boards.map((board) => {
           return (
             <Link
               key={board.id}
               href={`/boards/${board.id}`}
               style={{ backgroundImage: `url(${board.imageThumbUrl})` }}
-              className="group relative aspect-video bg-no-repeat bg-center bg-cover bg-sky-700 rounded-md h-full w-full p-2 overflow-hidden"
+              className="group relative aspect-video h-full w-full overflow-hidden rounded-md bg-sky-700 bg-cover bg-center bg-no-repeat p-2"
             >
-              <div
-                className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition"
-              />
-              <p className="relative font-semibold text-white">
-                {board.name}
-              </p>
+              <div className="absolute inset-0 bg-black/30 transition group-hover:bg-black/40" />
+              <p className="relative font-semibold text-white">{board.name}</p>
             </Link>
-          )
-         }) }
+          );
+        })}
         <FormPopover sideOffset={10} side="right">
           <div
             role="button"
@@ -49,8 +44,7 @@ export default async function BoardList() {
           >
             <p className="text-sm ">Create new board</p>
             <span className="text-xs text-slate-500">5 remaining</span>
-                      <Hint
-                          
+            <Hint
               sideOffset={20}
               description={`
                         Free tier is limited to 5 boards. Upgrade to get unlimited boards.
@@ -67,7 +61,7 @@ export default async function BoardList() {
 
 BoardList.Skeleton = function SkeletonBoardList() {
   return (
-    <div className="gird sm:grid-col-3 grid-cols-2 gap-4 lg:grid-cols-4">
+    <div className="sm:grid-col-3 grid grid-cols-2 gap-4 lg:grid-cols-5">
       <Skeleton className="aspect-video h-full min-w-full p-2" />
       <Skeleton className="aspect-video h-full min-w-full p-2" />
       <Skeleton className="aspect-video h-full min-w-full p-2" />
@@ -77,4 +71,4 @@ BoardList.Skeleton = function SkeletonBoardList() {
       <Skeleton className="aspect-video h-full min-w-full p-2" />
     </div>
   );
-}
+};
