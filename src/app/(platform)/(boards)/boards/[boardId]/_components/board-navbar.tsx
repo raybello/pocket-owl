@@ -13,7 +13,7 @@ export default async function BoardNavbar({
     return (
       <div className="flex h-8 flex-row items-center justify-between gap-x-4 rounded-lg bg-black/25 p-2 text-white">
         <BoardNavbarBreadcrumb data={data} />
-        <BoardMoreDropdown />
+        <BoardMoreDropdown data={data} />
       </div>
     );
 }

@@ -14,9 +14,24 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import type { Board } from "~/server/db/schema";
+
+import { deleteBoard } from "~/server/delete-board";
+import { useAction } from "hooks/use-actions";
+import { toast } from "sonner";
 
 
-export default function BoardMoreDropdown() {
+export default function BoardMoreDropdown({ data }: { data: Board }) {
+
+  const { execute, isLoading } = useAction(deleteBoard, {
+    onError: (error) => {
+      toast.error(error);
+    }
+  });
+
+  const onDelete = async () => {
+    await execute({ id: String(data.id) });
+  }
 
     return (
       <DropdownMenu>
@@ -32,7 +47,11 @@ export default function BoardMoreDropdown() {
             Copy Board
             <DropdownMenuShortcut>⌘+C</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem className="text-rose-500">
+          <DropdownMenuItem
+            className="text-rose-500"
+            onClick={onDelete}
+            disabled={isLoading}
+          >
             Delete Board
             <DropdownMenuShortcut>⌘+D</DropdownMenuShortcut>
           </DropdownMenuItem>

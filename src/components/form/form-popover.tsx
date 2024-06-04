@@ -13,6 +13,7 @@ import { createBoard } from "~/server/create-board";
 import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";
 import { FormPicker } from "./form-picker";
+import { revalidatePath } from "next/cache";
 
 interface FormPopoverProps {
     children: React.ReactNode;
@@ -36,7 +37,9 @@ export const FormPopover = ({
             console.log({ data });
             toast.success("Board created");
             closeRef.current?.click();
+
             router.push(`/boards/${data.id}`);
+            // revalidatePath(`/boards`);
         },
         onError: (error) => {
             toast.error(error);
@@ -76,6 +79,5 @@ export const FormPopover = ({
         </Popover>
         </>
     )
-
 }
     

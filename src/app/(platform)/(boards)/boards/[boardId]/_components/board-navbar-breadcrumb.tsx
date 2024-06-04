@@ -17,18 +17,34 @@ import type { ElementRef } from "react";
 import { useRef, useState } from "react";
 import { FormInput } from "~/components/form/form-input";
 
+import { updateBoard } from "~/server/update-board";
+import { useAction } from "hooks/use-actions";
+import { toast } from "sonner";
+
 interface BoardNameFormProps {
   data: Board;
 }
 
 export const BoardNavbarBreadcrumb = ({ data }: BoardNameFormProps) => {
+
+  const { execute } = useAction(updateBoard, {
+    onSuccess: (data) => {
+      toast.success(`Board "${data?.name}" updated!`);
+      setName(data?.name);
+      disableEditing();
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  })
+
   const formRef = useRef<ElementRef<"form">>(null);
   const inputRef = useRef<ElementRef<"input">>(null);
 
+  const [Name, setName] = useState(data.name);
   const [isEditing, setIsEditing] = useState(false);
 
   const enableEditing = () => {
-    // TODO: Focus on input
     setIsEditing(true);
     setTimeout(() => {
       inputRef.current?.focus();
@@ -39,11 +55,13 @@ export const BoardNavbarBreadcrumb = ({ data }: BoardNameFormProps) => {
     setIsEditing(false);
   };
 
-  const onSubmit = (formData: FormData) => {
+  const onSubmit = async (formData: FormData) => {
     const name = formData.get("name") as string;
-    console.log("Name: ", name);
 
-    disableEditing();
+    await execute({
+      name: name,
+      id: String(data.id),
+    })
   };
 
   const onBlur = () => {
@@ -70,7 +88,7 @@ export const BoardNavbarBreadcrumb = ({ data }: BoardNameFormProps) => {
               variant={"transparent"}
               className="h-auto w-auto p-1 pl-0.5 pr-0.5 text-sm font-semibold"
             >
-              {data.name}
+              {Name}
             </Button>
           ) : (
             <form
@@ -83,7 +101,7 @@ export const BoardNavbarBreadcrumb = ({ data }: BoardNameFormProps) => {
                 id="name"
                 className="focus:bg-red bg-transparent p-1 pl-0.5 pr-0.5 font-bold text-white focus-visible:outline-none"
                 onBlur={onBlur}
-                defaultValue={data.name}
+                defaultValue={Name}
               />
             </form>
           )}

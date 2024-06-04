@@ -73,10 +73,10 @@ function SidebarItem({
 const SidebarItems = [
   { icon: <DashboardSVG/>, text: "Dashboard", url: "/", active: true },
   { icon: <BoardSVG />, text: "Boards", url: "/boards", alert: true },
-  { icon: <TaskSVG />, text: "Tasks", url: "/tasks", alert: true },
-  { icon: <NotesSVG />, text: "Notes", url: "/notes" },
-  { icon: <CalendarSVG />, text: "Calendar", url: "/calendar", alert: true },
-  { icon: <SettingsSVG />, text: "Settings", url: "/settings" },
+  // { icon: <TaskSVG />, text: "Tasks", url: "/tasks", alert: true },
+  // { icon: <NotesSVG />, text: "Notes", url: "/notes" },
+  // { icon: <CalendarSVG />, text: "Calendar", url: "/calendar", alert: true },
+  // { icon: <SettingsSVG />, text: "Settings", url: "/settings" },
 ];
 
 const SidebarContext = createContext(true);

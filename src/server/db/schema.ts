@@ -1,9 +1,11 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
+  boolean,
   index,
+  integer,
   pgTableCreator,
   serial,
   timestamp,
@@ -71,8 +73,6 @@ export const images = createTable(
   }),
 );
 
-
-
 export const buckets = createTable(
   "bucket",
   {
@@ -108,4 +108,74 @@ export const boards = createTable(
     nameIndex: index("board_idx").on(example.name),
   }),
 );
+export const boardRelations = relations(boards, ({ many }) => ({
+  lists: many(lists),
+}))
 export type Board = typeof boards.$inferSelect;
+
+export const lists = createTable(
+  "list",
+  {
+    id: serial("id").primaryKey(),
+    name: varchar("name", { length: 256 }).notNull(),
+    order: integer("order").notNull(),
+    status: varchar("status", { length: 256 }),
+    boardId: serial("boardId")
+      .references(() => boards.id, { onDelete: "cascade" })
+      .notNull(),
+  },
+  (example) => ({
+    nameIndex: index("list_idx").on(example.name),
+    boardIdIndex: index("boardId_idx").on(example.boardId),
+  }),
+);
+export const listRelations = relations(lists, ({ one, many }) => ({
+  board: one(boards, {
+    fields: [lists.boardId],
+    references: [boards.id],
+  }),
+  cards: many(cards),
+}));
+export type List = typeof lists.$inferSelect; 
+
+export const cards = createTable(
+  "card",
+  {
+    id: serial("id").primaryKey(),
+    name: varchar("name", { length: 256 }).notNull(),
+    order: integer("order").notNull(),
+    completed: boolean("completed").default(false),
+    status: varchar("status", { length: 256 }),
+    description: varchar("description", { length: 1024 }),
+    tags: varchar("tags", { length: 1024 }),
+
+    subtasks: varchar("subtasks", { length: 1024 }),
+    subtaskStatuses: varchar("subtaskStatuses", { length: 256 }),
+
+    attachments: varchar("attachments", { length: 2048 }),
+
+    listId: serial("listId")
+      .references(() => lists.id, { onDelete: "cascade" })
+      .notNull(),
+
+    startDate: timestamp("startDate")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    
+    updatedAt: timestamp("updatedAt")
+      .default(sql`CURRENT_TIMESTAMP`),
+
+    endDate: timestamp("endDate")
+      .default(sql`CURRENT_TIMESTAMP`),
+  },  (example) => ({
+    nameIndex: index("card_idx").on(example.name),
+    listIdIndex: index("listId_idx").on(example.listId),
+  }),
+);
+export const cardRelations = relations(cards, ({ one,}) => ({
+  list: one(lists, {
+    fields: [cards.listId],
+    references: [lists.id],
+  }),
+}));
+export type Card = typeof cards.$inferSelect;

@@ -1,8 +1,7 @@
-import { z } from "zod";
-
-import { ActionState } from "~/lib/create-safe-action";
-import { CreateBoard } from "./schema";
-import { Board } from "../db/schema";
+import type { z } from "zod";
+import type { ActionState } from "~/lib/create-safe-action";
+import type { CreateBoard } from "./schema";
+import type { Board } from "../db/schema";
 
 
 export type InputType = z.infer<typeof CreateBoard>;

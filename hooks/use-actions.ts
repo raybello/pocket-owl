@@ -29,18 +29,18 @@ export const useAction = <TInput, TOutput>(
             try {
 
                 const result = await action(input);
-                if (result.error) { return };
+                if (result?.error) { return };
 
-                setFieldErrors(result.fieldErrors);
+                setFieldErrors(result?.fieldErrors);
 
-                if (result.error) {
-                    setError(result.error);
-                    options.onError?.(result.error);
+                if (result?.error) {
+                    setError(result?.error);
+                    options.onError?.(result?.error);
                 }
 
-                if (result.data) {
-                    setData(result.data);
-                    options.onSuccess?.(result.data);
+                if (result?.data) {
+                    setData(result?.data);
+                    options.onSuccess?.(result?.data);
                 }
                 
             } finally {

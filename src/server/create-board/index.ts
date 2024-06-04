@@ -1,9 +1,9 @@
 "use server";
 
+import type { InputType, ReturnType } from "./types";
 import { auth } from "@clerk/nextjs/server";
-import { InputType, ReturnType } from "./types";
 import { db } from "../db";
-import { buckets, boards } from "../db/schema";
+import { boards } from "../db/schema";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "~/lib/create-safe-action";
 import { CreateBoard } from "./schema";
@@ -62,7 +62,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  revalidatePath(`/boards/${board[0]?.id}/}`);
+  revalidatePath(`/boards/${board[0]?.id}`);
+  // revalidatePath(`/boards`);
 
   return {
     data: board[0],
