@@ -1,5 +1,3 @@
-import { Button } from "~/components/ui/button";
-import { CardTaskChecklist } from "./_components/card-task-checklist";
 import {
   CalendarDays,
   CircleCheck,
@@ -7,13 +5,37 @@ import {
   Hourglass,
   Paperclip,
 } from "lucide-react";
-import CardTaskName from "./_components/card-task-name";
 
-export default function BoardIdPage({
-  params: { boardId },
-}: {
-  params: { boardId: string };
-}) {
+import { auth } from "@clerk/nextjs/server";
+import { db } from "~/server/db";
+
+import { Button } from "~/components/ui/button";
+import { CardTaskChecklist } from "./_components/card-task-checklist";
+import { CardTaskName } from "./_components/card-task-name";
+import { eq } from "lodash";
+
+interface BoardIdPageProps {
+  params: {
+    boardId: string;
+  };
+}
+
+export default async function BoardIdPage({ params }: BoardIdPageProps) {
+  const { userId } = auth();
+  if (!userId) return null;
+
+  const lists = await db.query.lists.findMany({
+    where: (model, { eq }) => eq(model.boardId, Number(params.boardId)),
+    orderBy: (model, { asc }) => [asc(model.order)],
+    with: {
+      cards: {
+        orderBy: (card, { asc }) => [asc(card.order)],
+      },
+    },
+  });
+
+  console.log(lists)
+
   return (
     // MS Planner Card
     // <div className="mx-2 mt-3 flex w-[500px] flex-col space-y-2">
@@ -59,9 +81,13 @@ export default function BoardIdPage({
     //       <span className="flex text-xs text-slate-600"> 06/02 </span>
     //     </button>
     //   </div>
-    //   </div>
-      <div>
-              Board Page
-      </div>
+    // </div>
+    <div className="p-4 h-full overflow-x-auto bg-white">
+      BoardId
+      {/* <ListContainer
+        boardId={params.boardId}
+        data={lists}
+      /> */}
+    </div>
   );
 }

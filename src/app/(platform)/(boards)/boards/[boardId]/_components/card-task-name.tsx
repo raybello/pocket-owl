@@ -3,7 +3,7 @@
 import { Circle, CircleCheckBig } from "lucide-react";
 import { useState } from "react";
 
-export default function CardTaskName({
+export function CardTaskName({
   taskId,
   taskName,
 }: {

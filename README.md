@@ -17,3 +17,8 @@
 
 ## Upslash wallpaper collection
 https://unsplash.com/collections/1263731/wallpaper
+
+## Commands
+Run development server - npm run dev
+Run database studio    - npm run db:studio
+Push database changes  - npm run db:push
