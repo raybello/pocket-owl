@@ -1,6 +1,11 @@
 "use client";
 
 import type { List } from "~/server/db/schema";
+import type { ElementRef } from "react";
+
+import { MoreVertical, X } from "lucide-react";
+import { useAction } from "hooks/use-actions";
+import { deleteList } from "~/server/actions/delete-list";
 
 import {
   Popover,
@@ -9,8 +14,10 @@ import {
   PopoverClose,
 } from "~/components/ui/popover";
 import { Button } from "~/components/ui/button";
-import { MoreHorizontal, MoreVertical, X } from "lucide-react";
 import { FormSubmit } from "~/components/form/form-submit";
+import { toast } from "sonner";
+
+import { useRef } from "react";
 
 interface ListOptionsProps {
   data: List;
@@ -18,6 +25,26 @@ interface ListOptionsProps {
 }
 
 export const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
+
+  const closeRef = useRef<ElementRef<"button">>(null);
+
+  const { execute: executeDelete } = useAction(deleteList, {
+    onSuccess: (data) => {
+      toast.success(`List "${data.name}" deleted`);
+      closeRef.current?.click();
+    },
+    onError: (error) => {
+      toast.error(error);
+    }
+  });
+
+  const onDelete = async (formData: FormData) => {
+    const id = formData.get("id") as string;
+    const boardId = formData.get("boardId") as string;
+
+    await executeDelete({ id, boardId });
+  }
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -29,7 +56,7 @@ export const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
         <div className="pb-4 text-center text-sm font-medium text-neutral-600">
           List Actions
         </div>
-        <PopoverClose>
+        <PopoverClose ref={closeRef} asChild>
           <Button
             className=" absolute right-2 top-2 h-auto w-auto p-2 text-neutral-600 "
             variant={"ghost"}
@@ -55,7 +82,7 @@ export const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
           </FormSubmit>
         </form>
         <hr className="mt-2 py-1"/>
-        <form>
+        <form action={onDelete}>
           <input hidden name="id" id="id" value={data.id} />
           <input hidden name="boardId" id="boardId" value={data.boardId} />
           <FormSubmit

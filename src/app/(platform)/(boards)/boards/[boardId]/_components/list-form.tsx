@@ -5,7 +5,7 @@ import { useState, useRef, ElementRef } from "react";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
 
 import { useAction } from "hooks/use-actions";
-import { createList } from "~/server/create-list";
+import { createList } from "~/server/actions/create-list";
 
 import { ListWrapper } from "./list-wrapper";
 import { FormInput } from "~/components/form/form-input";

@@ -2,8 +2,8 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { InputType, ReturnType } from "./types";
-import { db } from "../db";
-import { lists } from "../db/schema";
+import { db } from "../../db";
+import { lists } from "../../db/schema";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "~/lib/create-safe-action";
 import { CreateList } from "./schema";
@@ -33,7 +33,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     }
 
     const lastList = await db.query.lists.findFirst({
-      where: (model, { eq}) => eq(model.boardId, Number(boardId)),
+      where: (model, { eq }) => eq(model.boardId, Number(boardId)),
       orderBy: (model, { desc }) => [desc(model.id)],
       columns: { order: true },
     });

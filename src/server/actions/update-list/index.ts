@@ -2,13 +2,12 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { InputType, ReturnType } from "./types";
-import { db } from "../db";
-import { boards } from "../db/schema";
+import { db } from "../../db";
+import { lists } from "../../db/schema";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "~/lib/create-safe-action";
-import { DeleteBoard } from "./schema";
-import { redirect } from "next/navigation";
+import { UpdateList } from "./schema";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId } = auth();
@@ -19,26 +18,26 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  const { id } = data;
-  let board;
+  const { name, id, boardId } = data;
+
+  let list;
 
   try {
-    board = await db
-      .delete(boards)
-      .where(and(eq(boards.id, Number(id)), eq(boards.userId, userId)))
+    list = await db
+      .update(lists)
+      .set({ name: name })
+      .where(and(eq(lists.id, Number(id)), eq(lists.boardId, Number(boardId))))
       .returning();
   } catch (error) {
-
-    console.log(error);
-
     return {
-      error: "Failed to delete board",
+      error: "Failed to update list",
     };
   }
 
-  revalidatePath("/boards");
-  redirect("/boards");
-  
+  revalidatePath(`/boards/${boardId}`);
+  return {
+    data: list[0],
+  };
 };
 
-export const deleteBoard = createSafeAction(DeleteBoard, handler);
+export const updateList = createSafeAction(UpdateList, handler);

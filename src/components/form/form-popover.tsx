@@ -9,7 +9,7 @@ import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "~/compone
 import { Button } from "~/components/ui/button";
 
 import { useAction } from "hooks/use-actions";
-import { createBoard } from "~/server/create-board";
+import { createBoard } from "~/server/actions/create-board";
 
 import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";

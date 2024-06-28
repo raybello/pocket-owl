@@ -1,6 +1,6 @@
 "use client";
 
-import { createBoard } from "~/server/create-board";
+import { createBoard } from "~/server/actions/create-board";
 import { useAction } from "hooks/use-actions";
 import { FormInput } from "~/components/form/form-input";
 import { FormSubmit } from "~/components/form/form-submit";

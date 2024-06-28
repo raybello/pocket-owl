@@ -4,7 +4,7 @@ import type { List } from "~/server/db/schema";
 import { useState, useRef, ElementRef } from "react";
 import { useEventListener } from "usehooks-ts";
 import { FormInput } from "~/components/form/form-input";
-import { updateList } from "~/server/update-list";
+import { updateList } from "~/server/actions/update-list";
 import { useAction } from "hooks/use-actions";
 import { toast } from "sonner";
 import { ListOptions } from "./list-options";

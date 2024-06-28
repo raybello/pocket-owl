@@ -2,8 +2,8 @@
 
 import type { InputType, ReturnType } from "./types";
 import { auth } from "@clerk/nextjs/server";
-import { db } from "../db";
-import { boards } from "../db/schema";
+import { db } from "../../db";
+import { boards } from "../../db/schema";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "~/lib/create-safe-action";
 import { CreateBoard } from "./schema";
@@ -19,27 +19,28 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
   const { name, image } = data;
 
-  const [
-    imageId,
-    imageThumbUrl,
-    imageFullUrl,
-    imageLinkHTML,
-    imageUserName,
-  ] = image.split("|");
+  const [imageId, imageThumbUrl, imageFullUrl, imageLinkHTML, imageUserName] =
+    image.split("|");
 
   console.log({
     imageId,
     imageThumbUrl,
     imageFullUrl,
     imageLinkHTML,
-    imageUserName
+    imageUserName,
   });
 
-  if (!imageId || !imageThumbUrl || !imageFullUrl || !imageLinkHTML || !imageUserName) {
+  if (
+    !imageId ||
+    !imageThumbUrl ||
+    !imageFullUrl ||
+    !imageLinkHTML ||
+    !imageUserName
+  ) {
     return {
       error: "Missing fields. Failed to create board",
-    }
-   }
+    };
+  }
 
   let board;
 

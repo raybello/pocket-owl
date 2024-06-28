@@ -17,7 +17,7 @@ import type { ElementRef } from "react";
 import { useRef, useState } from "react";
 import { FormInput } from "~/components/form/form-input";
 
-import { updateBoard } from "~/server/update-board";
+import { updateBoard } from "~/server/actions/update-board";
 import { useAction } from "hooks/use-actions";
 import { toast } from "sonner";
 

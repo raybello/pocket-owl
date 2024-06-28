@@ -16,7 +16,7 @@ import {
 } from "~/components/ui/dropdown-menu";
 import type { Board } from "~/server/db/schema";
 
-import { deleteBoard } from "~/server/delete-board";
+import { deleteBoard } from "~/server/actions/delete-board";
 import { useAction } from "hooks/use-actions";
 import { toast } from "sonner";
 

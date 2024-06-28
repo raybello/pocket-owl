@@ -2,12 +2,12 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { InputType, ReturnType } from "./types";
-import { db } from "../db";
-import { lists } from "../db/schema";
+import { db } from "../../db";
+import { boards } from "../../db/schema";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "~/lib/create-safe-action";
-import { UpdateList } from "./schema";
+import { UpdateBoard } from "./schema";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId } = auth();
@@ -18,26 +18,26 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  const { name, id, boardId } = data;
+  const { name, id } = data;
 
-  let list;
-    
+  let board;
+
   try {
-    list = await db
-      .update(lists)
+    board = await db
+      .update(boards)
       .set({ name: name })
-      .where(and(eq(lists.id, Number(id)), eq(lists.boardId, Number(boardId))))
+      .where(and(eq(boards.id, Number(id)), eq(boards.userId, userId)))
       .returning();
   } catch (error) {
     return {
-      error: "Failed to update list",
+      error: "Failed to update board",
     };
   }
 
-  revalidatePath(`/boards/${boardId}`);
+  revalidatePath(`/boards/${board[0]?.id}`);
   return {
-    data: list[0],
+    data: board[0],
   };
 };
 
-export const updateList = createSafeAction(UpdateList, handler);
+export const updateBoard = createSafeAction(UpdateBoard, handler);
