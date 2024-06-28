@@ -12,7 +12,7 @@ import { db } from "~/server/db";
 import { Button } from "~/components/ui/button";
 import { CardTaskChecklist } from "./_components/card-task-checklist";
 import { CardTaskName } from "./_components/card-task-name";
-import { eq } from "lodash";
+import { ListContainer } from "./_components/list-container";
 
 interface BoardIdPageProps {
   params: {
@@ -34,7 +34,6 @@ export default async function BoardIdPage({ params }: BoardIdPageProps) {
     },
   });
 
-  console.log(lists)
 
   return (
     // MS Planner Card
@@ -82,12 +81,13 @@ export default async function BoardIdPage({ params }: BoardIdPageProps) {
     //     </button>
     //   </div>
     // </div>
-    <div className="p-4 h-full overflow-x-auto bg-white">
-      BoardId
-      {/* <ListContainer
+    <>
+    <div className="py-4 px-3 h-full overflow-x-auto">
+      <ListContainer
         boardId={params.boardId}
         data={lists}
-      /> */}
-    </div>
+      />
+      </div>
+    </>
   );
 }

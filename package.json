@@ -47,6 +47,7 @@
     "tailwindcss-animate": "^1.0.7",
     "unsplash-js": "^7.0.19",
     "uploadthing": "^6.10.0",
+    "usehooks-ts": "^3.1.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
