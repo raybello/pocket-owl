@@ -7,7 +7,6 @@ import { db } from "../../db";
 import { lists } from "../../db/schema";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { createSafeAction } from "~/lib/create-safe-action";
 import { DeleteList } from "./schema";
 
@@ -39,7 +38,10 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   }
 
   revalidatePath(`/boards/${boardId}`);
-  redirect(`/boards/${boardId}`)
+
+  return {
+    data: deletedList[0],
+  }
   
 };
 

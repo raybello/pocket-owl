@@ -18,6 +18,7 @@ import { FormSubmit } from "~/components/form/form-submit";
 import { toast } from "sonner";
 
 import { useRef } from "react";
+import { copyList } from "~/server/actions/copy-list";
 
 interface ListOptionsProps {
   data: List;
@@ -30,13 +31,22 @@ export const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
 
   const { execute: executeDelete } = useAction(deleteList, {
     onSuccess: (data) => {
-      // toast.success(`List "${data.name}" deleted`);
-      toast.success(`List deleted`);
+      toast.success(`List "${data.name}" deleted`);
       closeRef.current?.click();
     },
     onError: (error) => {
       toast.error(error);
     }
+  });
+
+  const { execute: executeCopy } = useAction(copyList, {
+    onSuccess: (data) => {
+      toast.success(`Created "${data.name}"`);
+      closeRef.current?.click();
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
   });
 
   const onDelete = async (formData: FormData) => {
@@ -46,11 +56,18 @@ export const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
     await executeDelete({ id, boardId });
   }
 
+  const onCopy = async (formData: FormData) => {
+    const id = formData.get("id") as string;
+    const boardId = formData.get("boardId") as string;
+
+    await executeCopy({ id, boardId });
+  }
+
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button className="h-8 w-8 rounded-full p-2" variant={"ghost"}>
-          <MoreVertical className="h-5 w-5 text-slate-500" />
+          <MoreVertical className="h-5 w-5 text-black" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="px-0 pb-3 pt-3" side="bottom" align="start">
@@ -72,9 +89,9 @@ export const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
         >
           Add card...
         </Button>
-        <form>
-          <input hidden name="id" id="id" value={data.id} />
-          <input hidden name="boardId" id="boardId" value={data.boardId} />
+        <form action={onCopy}>
+          <input hidden name="id" id="id" defaultValue={data.id} />
+          <input hidden name="boardId" id="boardId" defaultValue={data.boardId} />
           <FormSubmit
             variant="ghost"
             className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal"
@@ -84,8 +101,8 @@ export const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
         </form>
         <hr className="mt-2 py-1"/>
         <form action={onDelete}>
-          <input hidden name="id" id="id" value={data.id} />
-          <input hidden name="boardId" id="boardId" value={data.boardId} />
+          <input hidden name="id" id="id" defaultValue={data.id} />
+          <input hidden name="boardId" id="boardId" defaultValue={data.boardId} />
           <FormSubmit
             variant="ghost"
             className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal text-rose-500"

@@ -11,10 +11,10 @@ import { ListOptions } from "./list-options";
 
 interface ListHeaderProps {
   data: List;
+  onAddCard: () => void;
 }
 
-export const ListHeader = ({ data }: ListHeaderProps) => {
-
+export const ListHeader = ({ data, onAddCard }: ListHeaderProps) => {
   const [Name, setName] = useState(data.name);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -55,11 +55,11 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
     }
 
     await execute({ name, id, boardId });
-  }
+  };
 
   const onBlur = () => {
     formRef.current?.requestSubmit();
-  }
+  };
 
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -74,20 +74,25 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
   useEventListener("keydown", onKeyDown);
 
   return (
-    <div className="flex items-start justify-between gap-x-2 px-2 pt-2 text-sm font-semibold">
+    <div className="flex items-start justify-between gap-x-2 pt-2 ">
       {isEditing ? (
-        <div className="h-8 w-full border-transparent px-2.5 py-1 text-sm font-medium">
+        <div className="text-md h-8 w-full border-transparent px-1 py-1 ">
           <form ref={formRef} className="flex-1 " action={handleSubmit}>
-            <input hidden id="id" name="id" value={data.id} />
-            <input hidden id="boardId" name="boardId" value={data.boardId} />
+            <input hidden id="id" name="id" defaultValue={data.id} />
+            <input
+              hidden
+              id="boardId"
+              name="boardId"
+              defaultValue={data.boardId}
+            />
             <FormInput
               ref={inputRef}
-              errors={fieldErrors}              
+              errors={fieldErrors}
               onBlur={onBlur}
               id="name"
               placeholder="Enter list name..."
               defaultValue={Name}
-              className="h-8 text-sm font-medium border-transparent hover:border-input pb-4"
+              className="text-md h-8 border-transparent pb-3 hover:border-input font-medium"
             />
             <button type="submit" className="hidden" />
           </form>
@@ -95,12 +100,15 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
       ) : (
         <div
           onClick={enableEditing}
-          className="h-8 w-full cursor-pointer border-transparent px-2.5 py-1 text-sm font-medium"
+          className="text-md h-8 w-full cursor-pointer border-transparent px-1 py-1 font-medium "
         >
-         {Name}
+          {Name}
         </div>
       )}
-      <ListOptions data={data} onAddCard={() => {1}} />
+      <ListOptions
+        data={data}
+        onAddCard={onAddCard}
+      />
     </div>
   );
 };
