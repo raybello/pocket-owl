@@ -22,7 +22,7 @@ export const CardItem = ({ index, card }: CardItemProps) => {
     <Draggable draggableId={card.id.toString()} index={index}>
       {(provided) => (
         <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="mt-2 flex w-full flex-col space-y-2 ">
-          <div className="flex flex-col rounded-sm bg-white p-3">
+          <div className="flex flex-col rounded-sm bg-white p-3 shadow-md">
             <div className="flex flex-row space-x-1.5 pb-2">
               <div className="flex">
                 <Button className="h-5 bg-cyan-200 px-2 text-cyan-700 hover:bg-cyan-100">

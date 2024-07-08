@@ -64,8 +64,6 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
       const listId = formData.get("listId") as string;
       const boardId = params.boardId as string;
 
-      console.log(name, listId, boardId);
-
       await execute({ name, listId, boardId });
     };
 

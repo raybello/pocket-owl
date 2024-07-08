@@ -7,6 +7,11 @@ import { ListItem } from "./list-item";
 
 import { DragDropContext, type DropResult, Droppable } from "@hello-pangea/dnd";
 
+import { useAction } from "hooks/use-actions";
+import { updateListOrder } from "~/server/actions/update-list-order";
+import { toast } from "sonner";
+import { updateCardOrder } from "~/server/actions/update-card-order";
+
 interface ListContainerProps {
   boardId: string;
   data: ListWithCards[];
@@ -22,13 +27,31 @@ function reorder<T>(list: T[], startIndex: number, endIndex: number) {
 }
 
 export const ListContainer = ({ boardId, data }: ListContainerProps) => {
+
   const [orderedData, setOrderedData] = useState(data);
+  const { execute: executeUpdateListOrder } = useAction(updateListOrder, {
+    onSuccess: () => {
+      toast.success("List reordered");
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  })
+  const { execute: executeUpdateCardOrder } = useAction(updateCardOrder, {
+    onSuccess: () => {
+      toast.success("Card reordered");
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
 
   useEffect(() => {
     setOrderedData(data);
   }, [data]);
 
-  const onDragEnd = (result: DropResult) => {
+  const onDragEnd = async (result: DropResult) => {
     const { destination, source, type } = result;
 
     if (!destination) {
@@ -51,9 +74,12 @@ export const ListContainer = ({ boardId, data }: ListContainerProps) => {
 
       setOrderedData(items);
 
-      // Todo: update database with new order
+      await executeUpdateListOrder({
+        items: items.map((item) => ({ id: item.id, name: item.name, order: item.order })),
+        boardId: boardId,
+      })
+    
     }
-
     // User moves a card
     if (type === "card") {
       const newOrderedData = [...orderedData];
@@ -94,9 +120,20 @@ export const ListContainer = ({ boardId, data }: ListContainerProps) => {
 
         sourceList.cards = reorderedCards;
 
+        console.log("After reordering: ", reorderedCards);
+
         setOrderedData(newOrderedData);
 
         // Todo: update database with new order
+        await executeUpdateCardOrder({
+          items: sourceList.cards.map((item) => ({
+            id: item.id,
+            order: item.order,
+          })),
+          boardId: boardId,
+          listId: sourceList.id,
+        });
+
       } else {
         //   User moves card to another list
 

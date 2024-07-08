@@ -20,7 +20,7 @@ export default async function BoardIdPage({ params }: BoardIdPageProps) {
     orderBy: (model, { asc }) => [asc(model.order)],
     with: {
       cards: {
-        orderBy: (card, { desc }) => [desc(card.order)],
+        orderBy: (card, { asc }) => [asc(card.order)],
       },
     },
   });

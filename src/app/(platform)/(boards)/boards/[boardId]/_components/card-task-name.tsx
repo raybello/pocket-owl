@@ -22,7 +22,7 @@ export function CardTaskName({
         )}
       </button>
       <span>
-        {taskId} {taskName}
+        {taskName}
       </span>
     </div>
   );
