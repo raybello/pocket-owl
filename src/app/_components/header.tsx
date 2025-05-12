@@ -176,8 +176,8 @@ export default function Header() {
             </div>
 
             <SignedOut>
-              <Link
-                href="https://accounts.uozonemycred.ca/sign-in"
+              {/* <Link
+                href="https://sensible-rat-46.accounts.dev/sign-in"
                 className="hidden md:block"
               >
                 <Button
@@ -186,8 +186,10 @@ export default function Header() {
                 >
                   Login
                 </Button>
-                {/* <SignInButton> Login </SignInButton> */}
-              </Link>
+              </Link> */}
+              <SignInButton className=" text-blue-600 hover:text-blue-300 ">
+                Login
+              </SignInButton>
             </SignedOut>
             <SignedIn>
               <nav className="flex w-full items-center justify-end pb-2 pr-3 pt-2">
@@ -274,11 +276,14 @@ export default function Header() {
 
             <div className="mb-8 flex justify-center">
               <SignedOut>
-                <Link href="https://elegant-lionfish-31.accounts.dev/sign-in">
+                {/* <Link href="https://sensible-rat-46.accounts.dev/sign-in">
                   <Button className="w-full bg-blue-600 text-white hover:bg-blue-700">
                     Login
                   </Button>
-                </Link>
+                </Link> */}
+                <SignInButton className=" text-blue-600 hover:text-blue-300 ">
+                  Login
+                </SignInButton>
               </SignedOut>
             </div>
             <SignedIn>
