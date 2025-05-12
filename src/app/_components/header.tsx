@@ -36,13 +36,13 @@ export default function Header() {
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
               <Image
-                src="/Maple_Leaf.svg"
+                src="/LogoPng.svg"
                 className=""
                 alt="logo"
-                height={30}
-                width={30}
+                height={50}
+                width={150}
               />
-              <span className="text-2xl font-bold text-blue-600">MyCred™</span>
+              {/* <span className="text-2xl font-bold text-blue-600">MyCred™</span> */}
             </Link>
           </div>
 
@@ -177,7 +177,7 @@ export default function Header() {
 
             <SignedOut>
               <Link
-                href="https://elegant-lionfish-31.accounts.dev/sign-in"
+                href="https://accounts.uozonemycred.ca/sign-in"
                 className="hidden md:block"
               >
                 <Button
@@ -239,9 +239,13 @@ export default function Header() {
           <div className="container mx-auto px-4 py-6">
             <div className="mb-8 flex items-center justify-between">
               <Link href="/" className="flex items-center">
-                <span className="text-2xl font-bold text-blue-600">
-                  MyCred™
-                </span>
+                <Image
+                  src="/LogoPng.svg"
+                  className=""
+                  alt="logo"
+                  height={50}
+                  width={150}
+                />
               </Link>
 
               <button

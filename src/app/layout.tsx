@@ -26,7 +26,7 @@ export const metadata = {
   },
   description:
     "Canada's new, official credential wallet for post-secondary learners and graduates.",
-  icons: [{ rel: "icon", url: "/favicon2.ico" }],
+  icons: [{ rel: "icon", url: "/favicon.png" }],
 };
 
 export default function RootLayout({
