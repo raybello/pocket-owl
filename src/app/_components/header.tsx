@@ -186,6 +186,7 @@ export default function Header() {
                 >
                   Login
                 </Button>
+                {/* <SignInButton> Login </SignInButton> */}
               </Link>
             </SignedOut>
             <SignedIn>
