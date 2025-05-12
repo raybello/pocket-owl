@@ -37,7 +37,7 @@ const orders = [
     product: "Official Document - Graduation Certificate",
     status: "shipped",
     progress: 60,
-    total: "$49.99",
+    total: "$65.48",
   },
   {
     id: "29012387590",
@@ -45,7 +45,7 @@ const orders = [
     product: "Official Document - Transcript",
     status: "delivered",
     progress: 100,
-    total: "$14.99",
+    total: "$21.92",
   },
   {
     id: "37219384726",
@@ -53,7 +53,7 @@ const orders = [
     product: "Official Document - Transcript",
     status: "delivered",
     progress: 100,
-    total: "$14.99",
+    total: "$21.92",
   },
 ];
 
