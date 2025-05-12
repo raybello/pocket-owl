@@ -37,7 +37,7 @@ export default function RootLayout({
   modal: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider afterSignOutUrl="https://www.uozonemycred.ca/">
       <CSPostHogProvider>
         <html lang="en">
           <NextSSRPlugin
