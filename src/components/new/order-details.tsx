@@ -112,7 +112,7 @@ export function OrderDetails({ orderId }: { orderId: string }) {
 
   const [showPDF, setShowPDF] = useState(false);
 
-  const pdfFile = "/dummy.pdf";
+  const pdfFile = "/DOC-GRAD-06834.pdf";
 
   const handleDownload = () => {
     // Create a link element
