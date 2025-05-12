@@ -4,17 +4,15 @@ import "@uploadthing/react/styles.css";
 import { Inter } from "next/font/google";
 import { TopNav } from "./_components/topnav";
 
-
-import {
-  ClerkProvider,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
 import { Toaster } from "~/components/ui/sonner";
 import { CSPostHogProvider } from "./_analytics/provider";
 import { SidebarContent } from "~/components/ui/sidebar";
-
+import Header from "./_components/header";
+import Footer from "./_components/footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,23 +21,21 @@ const inter = Inter({
 
 export const metadata = {
   title: {
-    default: "PocketOwl",
-    template: "%s | PocketOwl"
+    default: "MyCred.ca - Canada's Official Credential Wallet",
+    template: "%s | MyCred",
   },
-  description: "Tasks made easy",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  description:
+    "Canada's new, official credential wallet for post-secondary learners and graduates.",
+  icons: [{ rel: "icon", url: "/favicon2.ico" }],
 };
 
-
-
 export default function RootLayout({
-    children,
-    modal,
-  }: {
-    children: React.ReactNode;
-    modal: React.ReactNode;
-  }) {
-  
+  children,
+  modal,
+}: {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}) {
   return (
     <ClerkProvider>
       <CSPostHogProvider>
@@ -53,17 +49,10 @@ export default function RootLayout({
              */
             routerConfig={extractRouterConfig(ourFileRouter)}
           />
-          <body className={`font-sans ${inter.variable} custom_light flex`}>
-            <div className="flex flex-row w-full gap-2">
-              <SidebarContent />
-              <div className="flex w-full flex-col">
-                <TopNav />
-                {/* <main className="pr-3 max-w-6xl 2xl:max-w-screen h-full w-full mb-3">{children}</main> */}
-                <main className="pr-3 h-full w-full 2xl:max-w-screen mb-3">{children}</main>
-                {modal}
-              </div>
-            </div>
-            <div id="modal-root" />
+          <body className={`font-sans ${inter.className} custom_light`}>
+            <Header />
+            {children}
+            <Footer />
             <Toaster />
           </body>
         </html>

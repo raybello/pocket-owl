@@ -19,8 +19,7 @@ export function Footer() {
   return (
     <div>
       <p className="p-2 text-center text-xs text-neutral-400">
-              © 2024 PocketOwl. All rights reserved <br />
-              By RayB
+              © 2025 MyCred. All rights reserved <br />
       </p>
     </div>
   );

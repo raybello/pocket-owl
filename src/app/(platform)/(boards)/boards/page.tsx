@@ -6,6 +6,7 @@ export default function BoardsPage() {
     return (
       <div className="flex h-full w-full flex-col rounded-xl bg-primary p-2">
         <div className="px-2 md:px-4">
+          <h1> Boards</h1>
           <Suspense fallback={<BoardList.Skeleton />} >
             <BoardList />
           </Suspense>
